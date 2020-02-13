@@ -783,6 +783,27 @@ sub set_pagemode {
 }
 
 ###############
+# sets the page layout when opened in the viewer
+# param: mode:[single,one,twoleft,tworight]
+# return: 1/0
+###############
+sub set_pagelayout {
+	my $self = shift;
+	my $value = shift;
+
+	#--pagemode {document,outline,fullscreen}
+	if (!$self->_test_params($value, ['single', 'one', 'twoleft', 'tworight']) ) {
+    #if ($value ne 'document' && $value ne 'outline' && $value ne 'fullscreen') {
+		$self->error("wrong pagelayout: $value");
+		return 0;
+	}
+
+	$self->_set_doc_config('pagelayout', $value);
+}
+
+
+
+###############
 # sets the charset
 # param: charset
 # return: 1/0
@@ -1183,18 +1204,28 @@ my $htmldoc = new HTMLDoc('mode'=>'file', 'tmpdir'=>'/tmp');
 
 =head2 new()
 
-creates a new Instance of HTML::HTMLDoc.
+Creates a new Instance of HTML::HTMLDoc.
 
 Optional parameters are:
+
+=over 4
+=item *
 mode=>['file'|'ipc'] defaults to ipc
+
+=item *
 tmpdir=>$dir defaults to /tmp
+
+=item *
+bindir=>directory containing the htmldoc program, such as /usr/local/bin.  Useful when you have installed from source.
+
+=back
 
 The tmpdir is used for temporary html-files in filemode. Remember to set the file-permissions
 to write for the executing process.
 
 =head2 set_page_size($size)
 
-sets the desired size of the pages in the resulting PDF-document. $size is one of:
+Sets the desired size of the pages in the resulting PDF-document. $size is one of:
 
 =over 4
 
@@ -1215,19 +1246,18 @@ WxH{in,cm,mm} eg '10x10cm'
 
 =head2 set_owner_password($password)
 
-sets the owner-password for this document. $password can be any string. This only has effect if encryption is enabled.
+Sets the owner-password for this document. $password can be any string. This only has effect if encryption is enabled.
 see enable_encryption().
-
 
 =head2 set_user_password($password)
 
-sets the user-password for this document. $password can be any string. If set, User will be asked for this
+Sets the user-password for this document. $password can be any string. If set, User will be asked for this
 password when opening the file. This only has effect if encryption is enabled, see enable_encryption().
 
 
 =head2 set_permissions($perm)
 
-sets the permissions the user has to this document. $perm can be:
+Sets the permissions the user has to this document. $perm can be:
 
 =over 4
 
@@ -1261,8 +1291,7 @@ no-print
 =item *
 none
 
-
-setting one of this flags automatically enables the document-encryption ($htmldoc->enable_encryption())
+Setting one of this flags automatically enables the document-encryption ($htmldoc->enable_encryption())
 for you, because setting permissions will have no effect without it.
 
 Setting 'all' and 'none' will delete all other previously set options. You can set multiple options if
@@ -1271,75 +1300,65 @@ you need, eg.:
 $htmldoc->set_permissions('no-copy');
 $htmldoc->set_permissions('no-modify');
 
-this one will do the same:
+This one will do the same:
 $htmldoc->set_permissions('no-copy', 'no-modify');
 
 =back 
 
 =head2 links()
 
-turns link processing on.
-
+Turns link processing on.
 
 =head2 no_links()
 
-turns the links off.
+Turns the links off.
  
 
 =head2 path()
 
-specify the search path for files in a document. Use this method if your images are not shown.
+Specifies the search path for files in a document. Use this method if your images are not shown.
 
 Example:
 
 $htmldoc->path("/home/foo/www/myimages/");
 
-
 =head2 landscape()
 
-sets the format of the resulting pages to landscape
-
+Sets the format of the resulting pages to landscape.
 
 =head2 portrait()
 
-sets the format of the resulting pages to portrait
-
+Sets the format of the resulting pages to portrait.
 
 =head2 title()
 
-turns the title on.
-
+Turns the title on.
 
 =head2 no_title()
 
-turns the title off.
-
+Turns the title off.
 
 =head2 set_right_margin($margin, $messure)
 
-set the right margin. $margin is a INT, $messure one of 'in', 'cm' or 'mm'.
-
+Set the right margin. $margin is a INT, $messure one of 'in', 'cm' or 'mm'.
 
 =head2 set_left_margin($margin, $messure)
 
-set the left margin. $margin is a INT, $messure one of 'in', 'cm' or 'mm'.
-
+Set the left margin. $margin is a INT, $messure one of 'in', 'cm' or 'mm'.
 
 =head2 set_bottom_margin($margin, $messure)
 
-set the bottom margin. $margin is a INT, $messure one of 'in', 'cm' or 'mm'.
+Set the bottom margin. $margin is a INT, $messure one of 'in', 'cm' or 'mm'.
 
 
 =head2 set_top_margin($margin, $messure)
 
-set the top margin. $margin is a INT, $messure one of 'in', 'cm' or 'mm'.
-
+Set the top margin. $margin is a INT, $messure one of 'in', 'cm' or 'mm'.
 
 =head2 set_bodycolor($color)
 
 Sets the background of all pages to this background color. $color is a hex-coded color-value (eg. #FFFFFF),
 a rgb-value (eg set_bodycolor(0,0,0) for black) or a color name (eg. black)
-
 
 =head2 set_bodyfont($font)
 
@@ -1347,16 +1366,13 @@ Sets the default font of the content. Currently the following fonts are supporte
 
 Arial Courier Helvetica Monospace Sans-Serif Serif Symbol Times
  
-
 =head2 set_fontsize($fsize)
 
-Sets the default font size for the body text.
-
+Sets the default font size for the body text to the number of points, e.g. 12 for 12-point font.  1 point = 1/72 of an inch.
 
 =head2 set_bodyimage($image)
 
 Sets the background image for the document. $image is the path to the image in your filesystem.
-
 
 =head2 set_logoimage($image)
 
@@ -1366,25 +1382,21 @@ Remember to specify the 'l'-option somewhere in header or footer using set_heade
 $htmldoc-E<gt>set_logoimage('mylogo.gif');
 $htmldoc-E<gt>set_header('.', 'l', '.');
 
-
 =head2 get_logoimage()
 
-reads out a previous set logo-image. You will get the filename to the image.
-
+Reads out a previous set logo-image. You will get the filename to the image.
 
 =head2 set_browserwidth($width)
 
-specifies the browser width in pixels. The browser width is used to scale images and pixel measurements when generating PostScript and PDF files. It does not affect the font size of text.
+Specifies the browser width in pixels. The browser width is used to scale images and pixel measurements when generating PostScript and PDF files. It does not affect the font size of text.
 
 The default browser width is 680 pixels which corresponds roughly to a 96 DPI display. Please note that your images and table sizes are equal to or smaller than the browser width, or your output will overlap or truncate in places.
 
-
 =head2 set_compression($level)
 
-specifies that Flate compression should be performed on the output file. The optional level parameter is a number from 1 (fastest and least amount of compression) to 9 (slowest and most amount of compression).
+Specifies that Flate compression should be performed on the output file. The optional level parameter is a number from 1 (fastest and least amount of compression) to 9 (slowest and most amount of compression).
 
 This option is only available when generating Level 3 PostScript or PDF files.
-
 
 =head2 set_jpeg_compression($quality)
 
@@ -1408,6 +1420,25 @@ Set the jpg-image quality to a low value (25%). Call this method if you have man
 resulting document. Note that calling this method could result in poor image quality. If you want some more control see method set_jpeg_compression() which allows you to
 set the value of the compression to other values than 25%.
 
+=head2 set_pagelayout($layout)
+
+Specifies the initial page layout in the PDF viewer. The layout parameter can be one of the following:
+
+=over 4
+
+=item *
+single - A single page is displayed.
+
+=item *
+one - A single column is displayed.
+
+=item *
+twoleft - Two columns are displayed with the first page on the left.
+
+=item *
+tworight - Two columns are displayed with the first page on the right.
+
+This option is only available when generating PDF files. 
 
 =head2 set_pagemode($mode)
 
@@ -1416,20 +1447,21 @@ specifies the initial viewing mode of the document. $mode is one of:
 =over 4
 
 =item *
-document - the document pages are displayed in a normal window
+document - The document pages are displayed in a normal window.
 
 =item *
-outline - the document outline and pages are displayed
+outline - The document outline and pages are displayed.
 
 =item *
-fullscreen - the document pages are displayed on the entire screen
+fullscreen - The document pages are displayed on the entire screen.
 
 =back
 
 
 =head2 set_charset($charset)
 
-defines the charset for the output document. The following charsets are currenty supported:
+Defines the charset for the output document. The following charsets are currenty supported:
+
 cp-874 cp-1250 cp-1251 cp-1252 cp-1253 cp-1254 cp-1255
 cp-1256 cp-1257 cp-1258 iso-8859-1 iso-8859-2 iso-8859-3
 iso-8859-4 iso-8859-5 iso-8859-6 iso-8859-7 iso-8859-8
@@ -1438,34 +1470,32 @@ iso-8859-9 iso-8859-14 iso-8859-15 koi8-r utf-8
 
 =head2 color_on()
 
-defines that color output is desired
+Defines that color output is desired.
 
 =head2 color_off()
 
-defines that b&w output is desired
+Defines that b&w output is desired.
 
 
 =head2 duplex_on()
 
-enables output for two-sided printing
+Enables output for two-sided printing.
 
 =head2 duplex_off()
 
-sets output for one-sided printing
-
+Sets output for one-sided printing.
 
 =head2 enable_encryption()
 
-enables encryption and security features for the document.
+Snables encryption and security features for the document.
 
 =head2 disable_encryption()
 
-enables encryption and security features for the document.
-
+Enables encryption and security features for the document.
 
 =head2 set_output_format($format)
 
-sets the format of the output-document. $format can be one of:
+Sets the format of the output-document. $format can be one of:
 
 =over 4
 
@@ -1507,29 +1537,28 @@ ps3
 
 =head2 set_html_content($html)
 
-this is the function to set the html-content as a scalar. See set_input_file($filename)
+This is the function to set the html-content as a scalar. See set_input_file($filename)
 to use a present file from your filesystem for input
-
 
 =head2 get_html_content()
 
-returns the previous set html-content.
+Returns the previous set html-content.
 
 
 =head2 set_input_file($input_filename)
 
-this is the function to set the input file name.  It will also switch the
+This is the function to set the input file name.  It will also switch the
 operational mode to 'file'.
 
 
 =head2 get_input_file()
 
-returns the previous set input file name.
+Returns the previous set input file name.
 
 
 =head2 set_header($left, $center, $right)
 
-defines the data that should be displayed in header. One can choose from the following chars for each left,
+Defines the data that should be displayed in header. One can choose from the following chars for each left,
 center and right:
 
 =over 4
@@ -1615,29 +1644,29 @@ $htmldoc-E<gt>set_header('t', '.', '1');
 
 =head2 set_footer($left, $center, $right)
 
-defines the data that should be displayed in footer. See set_header() for details setting the left, center and right
+Defines the data that should be displayed in footer. See set_header() for details setting the left, center and right
 value.
 
 
 =head2 embed_fonts()
 
-specifies that fonts should be embedded in PostScript and PDF output. This is especially useful when generating documents in character sets other than ISO-8859-1.
+Specifies that fonts should be embedded in PostScript and PDF output. This is especially useful when generating documents in character sets other than ISO-8859-1.
 
 
 =head2 no_embed_fonts()
 
-turn the font-embedding previously enabled by embed_fonts() off.
+Turn the font-embedding previously enabled by embed_fonts() off.
 
 
 =head2 generate_pdf()
 
-generates the output-document. Returns a instance of HTML::HTMLDoc::PDF. See the perldoc of this class
+Generates the output-document. Returns a instance of HTML::HTMLDoc::PDF. See the perldoc of this class
 for details
 
 
 =head2 error()
 
-in scalar content returns the last error that occurred, in list context returns all errors that occurred.
+In scalar content returns the last error that occurred, in list context returns all errors that occurred.
 
 
 =head2 EXPORT
