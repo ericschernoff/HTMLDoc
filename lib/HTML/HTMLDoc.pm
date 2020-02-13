@@ -1421,9 +1421,10 @@ fullscreen - the document pages are displayed on the entire screen
 =head2 set_charset($charset)
 
 defines the charset for the output document. The following charsets are currenty supported:
-cp-874 cp-1250 cp-1251 cp-1252 cp-1253 cp-1254 cp-1255 cp-1256 cp-1257 cp-1258
-iso-8859-1 iso-8859-2 iso-8859-3  iso-8859-4 iso-8859-5 iso-8859-6 iso-8859-7
-iso-8859-8 iso-8859-9 iso-8859-14 iso-8859-15 koi8-r
+cp-874 cp-1250 cp-1251 cp-1252 cp-1253 cp-1254 cp-1255
+cp-1256 cp-1257 cp-1258 iso-8859-1 iso-8859-2 iso-8859-3
+iso-8859-4 iso-8859-5 iso-8859-6 iso-8859-7 iso-8859-8
+iso-8859-9 iso-8859-14 iso-8859-15 koi8-r utf-8
 
 
 =head2 color_on()
