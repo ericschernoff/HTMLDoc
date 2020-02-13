@@ -1664,6 +1664,8 @@ for suggestions and bug fixes.
 
 =head1 FAQ
 
+=over
+
 =item * Q: Where are the images that I specified in my HTML-Code?
 
 A: The images that you want to include have to be found by the process that is generating your PDF (that is
@@ -1680,7 +1682,6 @@ can be found. Example:
 
 $htmldoc->path("/home/foo/www/myimages/");
 
-
 =item * Q: How can I do a page break?
 
 A: You can include a HTML-Comment that will do a page break for you at the point it is located:
@@ -1688,11 +1689,11 @@ A: You can include a HTML-Comment that will do a page break for you at the point
 
 =item * Q: The Module works in shell but not with mod_perl
 
-
 A: Use htmldoc in file-Mode:
 
 my $htmldoc = new HTMLDoc('mode'=>'file', 'tmpdir'=>'/tmp');
 
+=back
 
 =head1 BUGS
 
