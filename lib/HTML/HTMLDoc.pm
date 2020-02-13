@@ -1190,36 +1190,46 @@ HTML::HTMLDoc - Perl interface to the htmldoc program for producing PDF Files fr
 
   my $htmldoc = new HTML::HTMLDoc();
 
+  # generate from a string of HTML:
   $htmldoc->set_html_content(qq~<html><body>A PDF file</body></html>~);
-  # $htmldoc->set_input_file($filename); # alternative to use a present file from your fs
+  
+  # or generate from an HTML file:
+  $htmldoc->set_input_file($filename); 
 
+  # create the PDF
   my $pdf = $htmldoc->generate_pdf();
 
+  # print the content of the PDF
   print $pdf->to_string();
+  
+  # save to a file
   $pdf->to_file('foo.pdf');
 
 
 =head1 DESCRIPTION
 
-https://www.msweet.org/htmldoc
+This module provides an OO interface to the HTMLDOC program.  HTMLDOC is a command
+line utility which creates PDF and PostScript files from HTML 3.2.  It is actively
+maintained and available via the package manager (apt, yum) of the major Linux distros.
 
-This Module provides an OO-interface to the htmldoc programm. To install this module you
-have to install the htmldoc program first. You can get it from http://www.htmldoc.org .
+HTML 3.2 is very limited for web interfaces, but it can do a lot when preparing a 
+document for printing.  The complete list of supported HTML tags is listed here:
+L<https://www.msweet.org/htmldoc/htmldoc.html#HTMLREF>
 
-You can use it to produce PDF or PS files from a HTML-document. Currently many but not all
-parameters of HTMLDoc are supported.
+The HTMLDOC home page at L<https://www.msweet.org/htmldoc> and includes complete
+documentation for the program and a link to the GitHub repo.
 
-You need to have HTMLDoc installed before installing this module.
+You will need to install HTMLDOC prior to installing this module, and it is
+recommended to experiment with the 'htmldoc' command prior to utilizing this module.
 
-All the pdf-Methods return true for success or false for failure. You can test if errors
-occurred by calling the error-method.
+All the config-setting modules return true for success or false for failure. You can 
+test if errors occurred by calling the error-method.
 
-Normaly this module uses IPC::Open3 for communacation with the HTMLDOC process. However,
-in mod_perl-environments there appear problems with this module because the standard-output can not
-be captured. For this problem this module provides a fix doing the communication in file-mode.
-
-For this you can specify the parameter mode in the constructor:
-my $htmldoc = new HTMLDoc('mode'=>'file', 'tmpdir'=>'/tmp');
+Normaly this module uses IPC::Open3 for communication with the HTMLDOC process.
+This works in PSGI and CGI environments, but if you are working in a Mod_Perl environment,
+you may need to set the file mode in new():
+	
+	my $htmldoc = new HTMLDoc('mode'=>'file', 'tmpdir'=>'/tmp');
 
 
 =head1 METHODS
@@ -1231,6 +1241,7 @@ Creates a new Instance of HTML::HTMLDoc.
 Optional parameters are:
 
 =over 4
+
 =item *
 mode=>['file'|'ipc'] defaults to ipc
 
@@ -1466,6 +1477,8 @@ twoleft - Two columns are displayed with the first page on the left.
 =item *
 tworight - Two columns are displayed with the first page on the right.
 
+=back
+
 This option is only available when generating PDF files. 
 
 =head2 set_pagemode($mode)
@@ -1530,7 +1543,7 @@ Sets the format of the output-document. $format can be one of:
 =item *
 html
 
-=itme *
+=item *
 epub
 
 =item *
@@ -1709,19 +1722,17 @@ Eric Chernoff - ericschernoff at	gmail.com - is the primary maintainer starting 
 The module was created and developed by Michael Frankl - mfrankl at    seibert-media.de
 
 
-=head1 COPYRIGHT AND LICENCE
+=head1 LICENSE
 
 MIT License
 
-Copyright (c) 2019 Eric Chernoff
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 =head1 CREDITS
+
+Many portions of this documentation pertaining to the options / configuration were copied and pasted from the HTMLDOC User Manual by Michael R Sweet at L<https://www.msweet.org/htmldoc/htmldoc.html>.
 
 Thanks very much to:
 
@@ -1737,8 +1748,7 @@ Helen Hamster
 
 Najib
 
-
-for suggestions and bug fixes.
+for suggestions and bug fixes for versions 0.10 and earlier.
 
 
 =head1 FAQ
@@ -1780,13 +1790,19 @@ Please use the GitHub Issue Tracker to report any bugs or missing functions.
 
 L<https://github.com/ericschernoff/HTMLDoc/issues>
 
+If you have difficulty with any of the features of this module, please test them
+via the native 'htmldoc' command prior to reporting an issue.
 
 =head1 SEE ALSO
-
-L<perl>.
 
 L<https://www.msweet.org/htmldoc/htmldoc.html>.
 
 L<https://github.com/michaelrsweet/htmldoc>.
+
+L<PDF::API2>
+
+L<PDF::Create>
+
+L<CAM::PDF>
 
 =cut
