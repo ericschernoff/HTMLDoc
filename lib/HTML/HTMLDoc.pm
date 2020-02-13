@@ -638,6 +638,28 @@ sub set_bodyfont {
 }
 
 ###############
+# sets the default font for the document
+# testet
+# param: fontface:STRING
+# return: 1/0
+###############
+sub set_textfont {
+	my $self = shift;
+	my $font = shift;
+
+	my $ret = 0;
+	my @allowed = qw(Arial Courier Helvetica Monospace Sans Serif Times);
+	if ( !$self->_test_params($font, \@allowed) ) {
+		$self->error("illegal font set $font");
+	} else {
+		$self->_set_doc_config('textfont', $font);
+		$ret = 1;
+	}
+
+	return $ret;
+}
+
+###############
 # sets the font size for body text
 # param: size:NUM
 # return: 1/0
@@ -1364,11 +1386,17 @@ a rgb-value (eg set_bodycolor(0,0,0) for black) or a color name (eg. black)
 
 Sets the default font of the content. Currently the following fonts are supported:
 
-Arial Courier Helvetica Monospace Sans-Serif Serif Symbol Times
+Arial Courier Helvetica Monospace Sans Serif Symbol Times
  
 =head2 set_fontsize($fsize)
 
 Sets the default font size for the body text to the number of points, e.g. 12 for 12-point font.  1 point = 1/72 of an inch.
+
+=head2 set_textfont($font)
+
+Sets the default font of the document. Currently the following fonts are supported:
+
+Arial Courier Helvetica Monospace Sans Serif Symbol Times
 
 =head2 set_bodyimage($image)
 
