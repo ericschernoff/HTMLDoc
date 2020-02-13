@@ -58,7 +58,7 @@ Optional parameters are:
 
 - mode=>\['file'|'ipc'\] defaults to ipc
 - tmpdir=>$dir defaults to /tmp
-- bindir=>directory containing the htmldoc program, such as /usr/local/bin.  Useful when you have installed from source.
+- bindir=>$dir directory containing your preferred htmldoc executable, such as /usr/local/bin.  Useful when you have installed from source.
 
 The tmpdir is used for temporary html-files in filemode. Remember to set the file-permissions
 to write for the executing process.

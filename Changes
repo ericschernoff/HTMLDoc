@@ -2,6 +2,8 @@ Revision history for Perl extension HTML-HTMLDoc
 
 {{$NEXT}}
 
+0.12 2020-02-13T04:22:15Z
+
     - Support for 'u' option in header and footer, and the 'L' option for header.  
     - Added 'binpath' attribute to new(), to support alternate installs of HTMLDOC.
     - Method to set options for duplex, textfont, and pagelayout
