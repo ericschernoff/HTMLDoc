@@ -591,7 +591,7 @@ sub set_bodyfont {
 	my $font = shift;
 
 	my $ret = 0;
-	my @allowed = qw(Arial Courier Helvetica Monospace Sans-Serif Serif Symbol Times);
+	my @allowed = qw(Arial Courier Helvetica Monospace Sans Serif Times);
 	if ( !$self->_test_params($font, \@allowed) ) {
 		$self->error("illegal font set $font");
 	} else {
@@ -847,7 +847,7 @@ sub set_output_format {
 	my $self = shift;
 	my $f = shift;
 
-	my @allowed = qw(html pdf pdf11 pdf12 pdf13 pdf14 ps ps1 ps2 ps3);
+	my @allowed = qw(epub html htmlsep pdf pdf11 pdf12 pdf13 pdf14 ps ps1 ps2 ps3);
 	if( !$self->_test_params($f, \@allowed)) {
 		$self->error("Wrong output format set $f");
 		return 0;
