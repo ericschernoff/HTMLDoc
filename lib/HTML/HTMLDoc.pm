@@ -368,7 +368,7 @@ sub set_footer {
 	my $center = shift;
 	my $right = shift;
 
-	my @allowed = ('.', ':', '/', '1', 'a', 'A', 'c', 'C', 'd', 'D', 'h', 'i', 'I', 'l', 't', 'T');
+	my @allowed = ('.', ':', '/', '1', 'a', 'A', 'c', 'C', 'd', 'D', 'h', 'i', 'I', 'l', 't', 'T','u');
 	if (!$self->_test_params($left, \@allowed) ) {
 		$self->error("wrong left-footer-option: $left");
 		return 0;
@@ -399,7 +399,7 @@ sub set_header {
 	my $center = shift;
 	my $right = shift;
 
-	my @allowed = ('.', ':', '/', '1', 'a', 'A', 'c', 'C', 'd', 'D', 'h', 'i', 'I', 'l', 't', 'T');
+	my @allowed = ('.', ':', '/', '1', 'a', 'A', 'c', 'C', 'd', 'D', 'h', 'i', 'I', 'l','L', 't', 'T','u');
 	if (!$self->_test_params($left, \@allowed) ) {
 		$self->error("wrong left-header-option: $left");
 		return 0;
