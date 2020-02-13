@@ -303,6 +303,34 @@ sub set_permissions {
 }
 
 ###############
+# sets to duplex for two-sided printing
+# testet
+# param: -
+# return: 1/0
+###############
+sub duplex_on {
+	my $self = shift;
+
+	$self->_set_doc_config('duplex', '');
+	$self->_delete_doc_config('no-duplex');
+	return 1;
+}
+
+###############
+# disable duplex / two-sided printing
+# testet
+# param: -
+# return: 1/0
+###############
+sub duplex_off {
+	my $self = shift;
+
+	$self->_set_doc_config('no-duplex', '');
+	$self->_delete_doc_config('duplex');
+	return 1;
+}
+
+###############
 # sets the pages to portrait
 # testet
 # param: -
@@ -1402,16 +1430,23 @@ iso-8859-8 iso-8859-9 iso-8859-14 iso-8859-15 koi8-r
 
 defines that color output is desired
 
-
 =head2 color_off()
 
 defines that b&w output is desired
 
 
+=head2 duplex_on()
+
+enables output for two-sided printing
+
+=head2 duplex_off()
+
+sets output for one-sided printing
+
+
 =head2 enable_encryption()
 
 enables encryption and security features for the document.
-
 
 =head2 disable_encryption()
 
