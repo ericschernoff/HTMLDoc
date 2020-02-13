@@ -9,7 +9,7 @@ use HTML::HTMLDoc::PDF;
 use vars qw(@ISA $VERSION);
 
 @ISA = qw();
-$VERSION = '0.10';
+$VERSION = '0.12';
 my $DEBUG = 0;
 
 ###############
@@ -1249,7 +1249,7 @@ mode=>['file'|'ipc'] defaults to ipc
 tmpdir=>$dir defaults to /tmp
 
 =item *
-bindir=>directory containing the htmldoc program, such as /usr/local/bin.  Useful when you have installed from source.
+bindir=>$dir directory containing your preferred htmldoc executable, such as /usr/local/bin.  Useful when you have installed from source.
 
 =back
 
