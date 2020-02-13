@@ -49,14 +49,21 @@ sub _init {
 		$self->{'config'}->{'tmpdir'} = '/tmp';
 	}
 
+	if ( defined($self->{'config'}->{'bindir'}) ) {
+		$self->{'config'}->{'bindir'} .= "/" if ( $self->{'config'}->{'bindir'} !~ /\/$/ );
+	} else {
+		$self->{'config'}->{'bindir'} = '';
+	}
+
 	$self->{'errors'} = [];
 	$self->{'doc_config'} = {};
 
-	$self->set_page_size('a4');
+	$self->set_page_size('universal');
 	$self->portrait();
 	$self->set_charset('iso-8859-1');
 	$self->_set_doc_config('quiet');
 	$self->set_output_format('pdf');
+	
 	# standard-header and footer
 	$self->set_footer('.', '1', '.');
 	$self->set_header('.', 't', '.');
@@ -204,7 +211,7 @@ sub set_page_size {
 	my $self = shift;
 	my $value = shift;
 
-	if ( !$value && $value ne 'a4' && $value ne 'letter' && $value!~/^\d+x\d+(?:in|cm|mm)/ ) {
+	if ( !$value && $value ne 'a4' && $value ne 'letter' && $value ne 'universal' && $value!~/^\d+x\d+(?:in|cm|mm)/ ) {
 		$self->error("unknown value for pagesize: $value");
 		return 0;
 	}
@@ -1017,12 +1024,12 @@ sub generate_pdf {
 	if ($self->_config('mode') eq 'ipc') {
 		# we are in normale Mode, use IPC
 		my ($pid, $error);
-    	($pid,$pdf,$error) = $self->_run("htmldoc  $params --webpage -", $self->get_html_content());
+    	($pid,$pdf,$error) = $self->_run($self->{'config'}->{'bindir'}."htmldoc  $params --webpage -", $self->get_html_content());
 	} else {
 		# we are in file-mode
 		my $filename = $self->_prepare_input_file();
 		return undef if (!$filename);
-		$pdf = `htmldoc  $params --webpage $filename`;
+		$pdf = `$self->{'config'}->{'bindir'}htmldoc $params --webpage $filename`;
     	$self->_cleanup();
 	}
 	
@@ -1132,7 +1139,7 @@ __END__
 
 =head1 NAME
 
-HTML::HTMLDoc - Perl interface to the htmldoc program for producing PDF-Files from HTML-Content
+HTML::HTMLDoc - Perl interface to the htmldoc program for producing PDF Files from HTML content.
 
 =head1 SYNOPSIS
 
@@ -1149,8 +1156,9 @@ HTML::HTMLDoc - Perl interface to the htmldoc program for producing PDF-Files fr
   $pdf->to_file('foo.pdf');
 
 
-
 =head1 DESCRIPTION
+
+https://www.msweet.org/htmldoc
 
 This Module provides an OO-interface to the htmldoc programm. To install this module you
 have to install the htmldoc program first. You can get it from http://www.htmldoc.org .
@@ -1171,7 +1179,6 @@ For this you can specify the parameter mode in the constructor:
 my $htmldoc = new HTMLDoc('mode'=>'file', 'tmpdir'=>'/tmp');
 
 
-
 =head1 METHODS
 
 =head2 new()
@@ -1185,7 +1192,6 @@ tmpdir=>$dir defaults to /tmp
 The tmpdir is used for temporary html-files in filemode. Remember to set the file-permissions
 to write for the executing process.
 
-
 =head2 set_page_size($size)
 
 sets the desired size of the pages in the resulting PDF-document. $size is one of:
@@ -1193,10 +1199,13 @@ sets the desired size of the pages in the resulting PDF-document. $size is one o
 =over 4
 
 =item *
-a4 (default)
+universal (default) == 8.27x11in (210x279mm)
 
 =item *
-letter
+a4 == 8.27x11.69in (210x297mm)
+
+=item *
+letter == 8.5x11in (216x279mm)
 
 =item *
 WxH{in,cm,mm} eg '10x10cm'
@@ -1604,19 +1613,15 @@ Setting the header to contain the title left, nothing in center and actual pagen
 $htmldoc-E<gt>set_header('t', '.', '1');
 
 
-
-
 =head2 set_footer($left, $center, $right)
 
 defines the data that should be displayed in footer. See set_header() for details setting the left, center and right
 value.
 
 
-
 =head2 embed_fonts()
 
 specifies that fonts should be embedded in PostScript and PDF output. This is especially useful when generating documents in character sets other than ISO-8859-1.
-
 
 
 =head2 no_embed_fonts()
@@ -1640,16 +1645,24 @@ in scalar content returns the last error that occurred, in list context returns 
 None by default.
 
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Michael Frankl - mfrankl at    seibert-media.de
+Eric Chernoff - ericschernoff at	gmail.com - is the primary maintainer starting from the 0.12 release.
+
+The module was created and developed by Michael Frankl - mfrankl at    seibert-media.de
 
 
 =head1 COPYRIGHT AND LICENCE
 
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself
-               
+MIT License
+
+Copyright (c) 2019 Eric Chernoff
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 =head1 CREDITS
 
@@ -1706,15 +1719,17 @@ my $htmldoc = new HTMLDoc('mode'=>'file', 'tmpdir'=>'/tmp');
 
 =head1 BUGS
 
-Please use the following URL to report any bugs or missing functions.
+Please use the GitHub Issue Tracker to report any bugs or missing functions.
 
-L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=HTML%3A%3AHTMLDoc>
+L<https://github.com/ericschernoff/HTMLDoc/issues>
 
 
 =head1 SEE ALSO
 
 L<perl>.
 
-L<HTML::HTMLDoc::PDF>.
+L<https://www.msweet.org/htmldoc/htmldoc.html>.
+
+L<https://github.com/michaelrsweet/htmldoc>.
 
 =cut
