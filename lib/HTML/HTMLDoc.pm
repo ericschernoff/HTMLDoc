@@ -875,7 +875,7 @@ sub set_output_format {
 	my $self = shift;
 	my $f = shift;
 
-	my @allowed = qw(epub html htmlsep pdf pdf11 pdf12 pdf13 pdf14 ps ps1 ps2 ps3);
+	my @allowed = qw(epub html pdf pdf11 pdf12 pdf13 pdf14 ps ps1 ps2 ps3);
 	if( !$self->_test_params($f, \@allowed)) {
 		$self->error("Wrong output format set $f");
 		return 0;
@@ -1463,6 +1463,9 @@ sets the format of the output-document. $format can be one of:
 =item *
 html
 
+=itme *
+epub
+
 =item *
 pdf (default)
 
@@ -1579,11 +1582,17 @@ B<l> A lowercase "l" indicates that the field should contain the logo image.
 
 
 =item *
+B<T> An uppercase "L" indicates that the logo image should stretch across the entire header.  Use only in the center.  (Works with htmldoc source as of Feb. 10, 2020.)
+
+=item *
 B<t> A lowercase "t" indicates that the field should contain the document title.
 
 
 =item *
 B<T> An uppercase "T" indicates that the field should contain the current time.
+
+=item *
+B<T> An lowercase "u" indicates that the field should contain the current filename or URL.
 
 
 =back
