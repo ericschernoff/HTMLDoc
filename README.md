@@ -197,7 +197,7 @@ Reads out a previous set logo-image. You will get the filename to the image.
 ## set\_letterhead($image)
 
 Sets the image to use as a letter for the document. $image is the path to the image in your filesystem. 
-The image should be 72dpi, and for portrait mode, 650-700 pixels wide and 72-120 pixels tall.
+The image should be 72DPI, and for portrait mode, 620-650 pixels wide and 72-90 pixels tall.
 The supported formats are BMP, GIF, JPEG, and PNG.
 
 This only works when the header is set to '.L.', and this method will automatically set\_header()
