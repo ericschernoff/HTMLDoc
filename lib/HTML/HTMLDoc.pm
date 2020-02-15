@@ -750,7 +750,7 @@ sub set_letterhead {
 # param: -
 # return: image:STRING
 ###############
-sub get_logoimage {
+sub get_letterhead {
 	my $self = shift;
 	return $self->_get_doc_config('letterhead');
 }
