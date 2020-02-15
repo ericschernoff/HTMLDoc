@@ -2,6 +2,10 @@ Revision history for Perl extension HTML-HTMLDoc
 
 {{$NEXT}}
 
+0.15 2020-02-15T03:46:14Z
+
+    - Corrected misnamed subroutine (get_letterhead)
+
 0.14 2020-02-15T03:20:50Z
 
     - Support for 'letterhead' option in HTMLDOC 1.9.8
