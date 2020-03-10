@@ -31,7 +31,8 @@ maintained and available via the package manager (apt, yum) of the major Linux d
 
 HTML 3.2 is very limited for web interfaces, but it can do a lot when preparing a 
 document for printing.  The complete list of supported HTML tags is listed here:
-[https://www.msweet.org/htmldoc/htmldoc.html#HTMLREF](https://www.msweet.org/htmldoc/htmldoc.html#HTMLREF)
+[https://www.msweet.org/htmldoc/htmldoc.html#HTMLREF](https://www.msweet.org/htmldoc/htmldoc.html#HTMLREF)  There are also several 
+HTMLDOC-specific comment options detailed here: [https://www.msweet.org/htmldoc/htmldoc.html#COMMENTS](https://www.msweet.org/htmldoc/htmldoc.html#COMMENTS)
 
 The HTMLDOC home page at [https://www.msweet.org/htmldoc](https://www.msweet.org/htmldoc) and includes complete
 documentation for the program and a link to the GitHub repo.
