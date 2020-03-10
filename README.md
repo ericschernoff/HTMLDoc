@@ -23,6 +23,10 @@ HTML::HTMLDoc - Perl interface to the htmldoc program for producing PDF Files fr
     # save to a file
     $pdf->to_file('foo.pdf');
 
+    # see the htmldoc command used to generate a PDF -- after using set_input_file() 
+    # and all other desired configuration methods
+    print $htmldoc->get_htmldoc_command();
+
 # DESCRIPTION
 
 This module provides an OO interface to the HTMLDOC program.  HTMLDOC is a command
@@ -43,7 +47,11 @@ recommended to experiment with the 'htmldoc' command prior to utilizing this mod
 All the config-setting modules return true for success or false for failure. You can 
 test if errors occurred by calling the error-method.
 
-Normaly this module uses IPC::Open3 for communication with the HTMLDOC process.
+Please use the get\_htmldoc\_command() method to retrieve an HTMLDOC command with your 
+options for easy troubleshooting.  **If your HTML does not work with the HTMLDOC
+command, it will also not work with this module.**
+
+Normally this module uses IPC::Open3 for communication with the HTMLDOC process.
 This works in PSGI and CGI environments, but if you are working in a Mod\_Perl environment,
 you may need to set the file mode in new():
 
@@ -378,6 +386,12 @@ Turn the font-embedding previously enabled by embed\_fonts() off.
 
 Generates the output-document. Returns a instance of HTML::HTMLDoc::PDF. See the perldoc of this class
 for details
+
+## get\_htmldoc\_command()
+
+Returns the 'htmldoc' command with arguments to generate the PDF based on the configuration you've set
+via the other methods.  Only works if you have specified an input HTML files via set\_input\_file().
+Very useful for troubleshooting your output very quickly.
 
 ## error()
 
