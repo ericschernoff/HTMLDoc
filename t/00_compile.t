@@ -390,7 +390,7 @@ $htmldoc->set_output_format('html');
 $htmldoc->set_html_content('<html><body>lkjlkjlkj</body></html>');
 my $pdf = $htmldoc->generate_pdf();
 is(ref($pdf), 'HTML::HTMLDoc::PDF', 'HTML format (1/2)');
-like(substr($pdf->to_string(),0,15), qr/<!DOCTYPE html>/i, 'HTML format (2/2)' );
+like(substr($pdf->to_string(),0,15), qr/<!DOCTYPE html/i, 'HTML format (2/2)' );
 
 # test generation of pdf in Apache-File-Mode
 my $htmldoc = new HTML::HTMLDoc('mode'=>'file', 'tmpdir'=>'/tmp/hshshshd/sdasd/');
