@@ -2,6 +2,10 @@ Revision history for Perl extension HTML-HTMLDoc
 
 {{$NEXT}}
 
+0.17.1 2020-08-11T16:56:18Z
+
+    - Fix for doctype test for CentOS and FreeBSD and earlier Ubuntu
+
 0.17 2020-08-03T19:16:07Z
 
     - Make all tests work with tests for new functions.
