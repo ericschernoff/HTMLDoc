@@ -9,7 +9,7 @@ use HTML::HTMLDoc::PDF;
 use vars qw(@ISA $VERSION);
 
 @ISA = qw();
-$VERSION = '0.19';
+$VERSION = '0.20';
 my $DEBUG = 0;
 
 ###############
