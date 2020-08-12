@@ -2,8 +2,8 @@ use strict;
 use Test::More tests => 115;
 
 # make sure the htmldoc binary is installed
-my $version = `htmldoc --version`;
-like($version, '/^1\.\d+/', 'HTMLDoc installed');
+my $version = `htmldoc --version` || 'htmldoc not found';
+like($version, '/^1\.\d+/', 'HTMLDoc installed') or BAIL_OUT qq{This module can not work without the 'htmldoc' program installed on this system.};
 
 # try to compile the module
 use_ok $_ for qw(
