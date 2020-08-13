@@ -1,11 +1,13 @@
+Build.PL
 Changes
+cpanfile
 lib/HTML/HTMLDoc.pm
 lib/HTML/HTMLDoc/PDF.pm
-Makefile.PL
+LICENSE
 MANIFEST
-README
+META.json
+minil.toml
+README.md
+t/00_compile.t
+testdata
 TODO
-test.pl
-test_htmldoc.PL
-testdata/testimage.gif
-META.yml                                 Module meta-data (added by MakeMaker)
