@@ -29,7 +29,7 @@ HTML::HTMLDoc - Perl interface to the htmldoc program for producing PDF Files fr
 
 # PREREQUISITE
 
-This module is just a front-end to the HTMLDOC program, therefore you must have 
+This module is just a front-end to the HTMLDOC program, therefore you must have
 that program installed prior to attempting to install and utilize this module.
 
 The HTMLDOC home page at [https://www.msweet.org/htmldoc](https://www.msweet.org/htmldoc)
@@ -75,6 +75,9 @@ Optional parameters are:
 
 The tmpdir is used for temporary html-files in filemode. Remember to set the file-permissions
 to write for the executing process.
+
+Note that FreeBSD 14.3 seems to not like IPC mode so the FreeBSD default for mode is 'file'.
+If you can enable IPC on FreeBSD, the 'ipc' mode will work.
 
 ## set\_page\_size($size)
 
