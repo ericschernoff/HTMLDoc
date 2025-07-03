@@ -76,9 +76,6 @@ Optional parameters are:
 The tmpdir is used for temporary html-files in filemode. Remember to set the file-permissions
 to write for the executing process.
 
-Note that FreeBSD 14.3 seems to not like IPC mode so the FreeBSD default for mode is 'file'.
-If you can enable IPC on FreeBSD, the 'ipc' mode will work.
-
 ## set\_page\_size($size)
 
 Sets the desired size of the pages in the resulting PDF-document. $size is one of:
@@ -486,8 +483,8 @@ via the native 'htmldoc' command prior to reporting an issue.
 
 [https://github.com/michaelrsweet/htmldoc](https://github.com/michaelrsweet/htmldoc).
 
-[PDF::API2](https://metacpan.org/pod/PDF::API2)
+[PDF::API2](https://metacpan.org/pod/PDF%3A%3AAPI2)
 
-[PDF::Create](https://metacpan.org/pod/PDF::Create)
+[PDF::Create](https://metacpan.org/pod/PDF%3A%3ACreate)
 
-[CAM::PDF](https://metacpan.org/pod/CAM::PDF)
+[CAM::PDF](https://metacpan.org/pod/CAM%3A%3APDF)

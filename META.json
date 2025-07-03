@@ -4,13 +4,13 @@
       "Eric Chernoff - ericschernoff at\tgmail.com - is the primary maintainer starting from the 0.12 release."
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v3.1.9, CPAN::Meta::Converter version 2.150010",
+   "generated_by" : "Minilla/v3.1.23, CPAN::Meta::Converter version 2.150010",
    "license" : [
       "mit"
    ],
    "meta-spec" : {
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
-      "version" : "2"
+      "version" : 2
    },
    "name" : "HTML-HTMLDoc",
    "no_index" : {
@@ -53,7 +53,7 @@
          }
       }
    },
-   "release_status" : "stable",
+   "release_status" : "unstable",
    "resources" : {
       "bugtracker" : {
          "web" : "https://github.com/ericschernoff/HTMLDoc/issues"
@@ -61,14 +61,15 @@
       "homepage" : "https://github.com/ericschernoff/HTMLDoc",
       "repository" : {
          "type" : "git",
-         "url" : "git://github.com/ericschernoff/HTMLDoc.git",
+         "url" : "https://github.com/ericschernoff/HTMLDoc.git",
          "web" : "https://github.com/ericschernoff/HTMLDoc"
       }
    },
-   "version" : "0.21",
+   "version" : "0.22",
    "x_contributors" : [
+      "Eric Chernoff <eric@weaverstreet.net>",
       "Eric Chernoff <ericschernoff@gmail.com>"
    ],
-   "x_serialization_backend" : "JSON::PP version 2.27400_02",
+   "x_serialization_backend" : "JSON::PP version 4.16",
    "x_static_install" : 0
 }
