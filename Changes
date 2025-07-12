@@ -2,6 +2,10 @@ Revision history for Perl extension HTML-HTMLDoc
 
 {{$NEXT}}
 
+0.23 2025-07-12T04:15:21Z
+
+    - Make the config mode test pass for FreeBSD
+
 0.22 2025-07-03T03:34:33Z
 
     - Set the default mode in FreeBSD to 'file'
