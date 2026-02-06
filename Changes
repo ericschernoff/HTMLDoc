@@ -2,6 +2,10 @@ Revision history for Perl extension HTML-HTMLDoc
 
 {{$NEXT}}
 
+0.25 2026-02-06T13:31:26Z
+
+    - Fix the PDF 1.x test
+
 0.24 2026-02-06T03:59:29Z
 
     - Make the tests pass for Debian 13
