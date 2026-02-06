@@ -319,8 +319,9 @@ is($ok, 1, 'Check default parameters');
 #  the generation of pdf, ps and html in all possible versions
 
 # test pdf 1.x
+my $htmldoc = new HTML::HTMLDoc('mode' => 'file');
 $htmldoc->set_html_content('test');
-my $pdf = $htmldoc->generate_pdf('mode' => 'file');
+my $pdf = $htmldoc->generate_pdf();
 is(ref($pdf), 'HTML::HTMLDoc::PDF', 'PDF format (1/2)');
 like(substr($pdf->to_string(),0,10), '/%PDF-1.\d/', 'PDF format (2/2)' );
 
