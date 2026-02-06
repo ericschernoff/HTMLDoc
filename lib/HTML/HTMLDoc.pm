@@ -1278,6 +1278,12 @@ that program installed prior to attempting to install and utilize this module.
 
 The HTMLDOC home page at L<https://www.msweet.org/htmldoc>
 
+=head1 NOTE ON IPC
+
+More recent versions of FreeBSD and Debian do not play well with IPC, so
+the tests use 'file' mode.  This module may default to that 'file' mode
+in future releases.
+
 =head1 DESCRIPTION
 
 This module provides an OO interface to the HTMLDOC program.  HTMLDOC is a command

@@ -320,12 +320,12 @@ is($ok, 1, 'Check default parameters');
 
 # test pdf 1.x
 $htmldoc->set_html_content('test');
-my $pdf = $htmldoc->generate_pdf();
+my $pdf = $htmldoc->generate_pdf('mode' => 'file');
 is(ref($pdf), 'HTML::HTMLDoc::PDF', 'PDF format (1/2)');
 like(substr($pdf->to_string(),0,10), '/%PDF-1.\d/', 'PDF format (2/2)' );
 
 # test pdf 1.1
-my $htmldoc = new HTML::HTMLDoc();
+my $htmldoc = new HTML::HTMLDoc('mode' => 'file');
 $htmldoc->set_output_format('pdf11');
 $htmldoc->set_html_content('test');
 my $pdf = $htmldoc->generate_pdf();
@@ -333,7 +333,7 @@ is(ref($pdf), 'HTML::HTMLDoc::PDF', 'PDF 1.1 format (1/2)');
 like(substr($pdf->to_string(),0,10), '/%PDF-1.1/', 'PDF 1.1 format (2/2)' );
 
 # test pdf 1.2
-my $htmldoc = new HTML::HTMLDoc();
+my $htmldoc = new HTML::HTMLDoc('mode' => 'file');
 $htmldoc->set_output_format('pdf12');
 $htmldoc->set_html_content('test');
 my $pdf = $htmldoc->generate_pdf();
@@ -341,7 +341,7 @@ is(ref($pdf), 'HTML::HTMLDoc::PDF', 'PDF 1.2 format (1/2)');
 like(substr($pdf->to_string(),0,10), '/%PDF-1.2/', 'PDF 1.2 format (2/2)' );
 
 # test pdf 1.3
-my $htmldoc = new HTML::HTMLDoc();
+my $htmldoc = new HTML::HTMLDoc('mode' => 'file');
 $htmldoc->set_output_format('pdf13');
 $htmldoc->set_html_content('test');
 my $pdf = $htmldoc->generate_pdf();
@@ -349,7 +349,7 @@ is(ref($pdf), 'HTML::HTMLDoc::PDF', 'PDF 1.3 format (1/2)');
 like(substr($pdf->to_string(),0,10), '/%PDF-1.3/', 'PDF 1.3 format (2/2)' );
 
 # test pdf 1.4
-my $htmldoc = new HTML::HTMLDoc();
+my $htmldoc = new HTML::HTMLDoc('mode' => 'file');
 $htmldoc->set_output_format('pdf14');
 $htmldoc->set_html_content('test');
 my $pdf = $htmldoc->generate_pdf();
@@ -357,7 +357,7 @@ is(ref($pdf), 'HTML::HTMLDoc::PDF', 'PDF 1.4 format (1/2)');
 like(substr($pdf->to_string(),0,10), '/%PDF-1.4/', 'PDF 1.4 format (2/2)' );
 
 # test PS
-my $htmldoc = new HTML::HTMLDoc();
+my $htmldoc = new HTML::HTMLDoc('mode' => 'file');
 $htmldoc->set_output_format('ps');
 $htmldoc->set_html_content('test');
 my $pdf = $htmldoc->generate_pdf();
@@ -365,7 +365,7 @@ is(ref($pdf), 'HTML::HTMLDoc::PDF', 'PS format (1/2)');
 like(substr($pdf->to_string(),0,20), qr/^\Q%!PS-Adobe-3.0\E/, 'PS format (2/2)' );
 
 # test PS1
-my $htmldoc = new HTML::HTMLDoc();
+my $htmldoc = new HTML::HTMLDoc('mode' => 'file');
 $htmldoc->set_output_format('ps1');
 $htmldoc->set_html_content('test');
 my $pdf = $htmldoc->generate_pdf();
@@ -373,7 +373,7 @@ is(ref($pdf), 'HTML::HTMLDoc::PDF', 'PS1 format (1/2)');
 like(substr($pdf->to_string(),0,20), qr/^\Q%!PS-Adobe-3.0\E/, 'PS1 format (2/2)' );
 
 # test PS2
-my $htmldoc = new HTML::HTMLDoc();
+my $htmldoc = new HTML::HTMLDoc('mode' => 'file');
 $htmldoc->set_output_format('ps2');
 $htmldoc->set_html_content('test');
 my $pdf = $htmldoc->generate_pdf();
@@ -381,7 +381,7 @@ is(ref($pdf), 'HTML::HTMLDoc::PDF', 'PS2 format (1/2)');
 like(substr($pdf->to_string(),0,20), qr/^\Q%!PS-Adobe-3.0\E/, 'PS2 format (2/2)' );
 
 # test PS3
-my $htmldoc = new HTML::HTMLDoc();
+my $htmldoc = new HTML::HTMLDoc('mode' => 'file');
 $htmldoc->set_output_format('ps3');
 $htmldoc->set_html_content('test');
 my $pdf = $htmldoc->generate_pdf();
